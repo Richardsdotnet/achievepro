@@ -3,7 +3,7 @@ package com.richards.achievepro.service;
 import com.richards.achievepro.mapper.AchievementMapper;
 import com.richards.achievepro.dto.request.AchievementRequestDTO;
 import com.richards.achievepro.dto.response.AchievementResponseDTO;
-import com.richards.achievepro.models.Achievement;
+import com.richards.achievepro.model.Achievement;
 import com.richards.achievepro.repository.AchievementRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service layer for managing user achievements.
- * Handles business logic and interacts with the repository and mapper.
- */
 @Service
 public class AchievementService {
 
@@ -29,51 +25,39 @@ public class AchievementService {
         this.achievementMapper = achievementMapper;
     }
 
-    /**
-     * Retrieves all user achievements.
-     * @return A list of AchievementResponseDTOs.
-     */
+    // Now the primary method to get achievements, always scoped by userId
     @Transactional(readOnly = true)
-    public List<AchievementResponseDTO> getAllAchievements() {
-        List<Achievement> achievements = achievementRepository.findAll();
+    public List<AchievementResponseDTO> getAllAchievementsByUserId(String userId) {
+        List<Achievement> achievements = achievementRepository.findByUserId(userId);
         return achievementMapper.toDtoList(achievements);
     }
 
-    /**
-     * Retrieves a single achievement by its ID.
-     * @param id The ID of the achievement.
-     * @return An Optional containing the AchievementResponseDTO if found, or empty if not.
-     */
+    // Always fetch by achievement ID and user ID for security
     @Transactional(readOnly = true)
-    public Optional<AchievementResponseDTO> getAchievementById(Long id) {
-        return achievementRepository.findById(id)
+    public Optional<AchievementResponseDTO> getAchievementByIdAndUserId(Long id, String userId) {
+        return achievementRepository.findByIdAndUserId(id, userId)
                 .map(achievementMapper::toDto);
     }
 
-    /**
-     * Creates a new achievement.
-     * @param requestDTO The AchievementRequestDTO containing the data for the new achievement.
-     * @return The created AchievementResponseDTO with its generated ID.
-     */
     @Transactional
-    public AchievementResponseDTO createAchievement(AchievementRequestDTO requestDTO) {
+    public AchievementResponseDTO createAchievement(AchievementRequestDTO requestDTO, String userId) {
         Achievement achievement = achievementMapper.toEntity(requestDTO);
+        achievement.setUserId(userId);
+
+        if (userId == null || userId.isEmpty()) {
+            throw new IllegalArgumentException("User ID must not be null when creating an achievement.");
+        }
+
         Achievement savedAchievement = achievementRepository.save(achievement);
         return achievementMapper.toDto(savedAchievement);
     }
 
-    /**
-     * Updates an existing achievement.
-     * @param id The ID of the achievement to update.
-     * @param requestDTO An AchievementRequestDTO containing the updated details.
-     * @return The updated AchievementResponseDTO, or null if the achievement with the given ID was not found.
-     */
     @Transactional
-    public AchievementResponseDTO updateAchievement(Long id, AchievementRequestDTO requestDTO) {
-        Optional<Achievement> optionalAchievement = achievementRepository.findById(id);
+    public AchievementResponseDTO updateAchievement(Long id, AchievementRequestDTO requestDTO, String userId) {
+        // Find by ID AND userId to ensure the authenticated user owns this achievement
+        Optional<Achievement> optionalAchievement = achievementRepository.findByIdAndUserId(id, userId);
         if (optionalAchievement.isPresent()) {
             Achievement existingAchievement = optionalAchievement.get();
-            existingAchievement.setUserId(requestDTO.getUserId());
             existingAchievement.setTitle(requestDTO.getTitle());
             existingAchievement.setDescription(requestDTO.getDescription());
             existingAchievement.setRating(requestDTO.getRating());
@@ -82,18 +66,14 @@ public class AchievementService {
             Achievement updatedAchievement = achievementRepository.save(existingAchievement);
             return achievementMapper.toDto(updatedAchievement);
         } else {
-            return null;
+            throw new RuntimeException("Achievement not found or not authorized for update.");
         }
     }
 
-    /**
-     * Deletes an achievement by its ID.
-     * @param id The ID of the achievement to delete.
-     * @return true if the achievement was deleted, false otherwise.
-     */
     @Transactional
-    public boolean deleteAchievement(Long id) {
-        if (achievementRepository.existsById(id)) {
+    public boolean deleteAchievement(Long id, String userId) {
+        // Find by ID AND userId to ensure the authenticated user owns this achievement
+        if (achievementRepository.existsByIdAndUserId(id, userId)) {
             achievementRepository.deleteById(id);
             return true;
         }

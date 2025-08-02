@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AchievementRequestDTO {
-
-    private String userId;
+    // Removed userId field for security. The backend will get it from the request context.
     private String title;
     private String description;
-    private int rating;
+    private int rating; // Updated from 'score' to 'rating'
     private String dateAchieved;
 }

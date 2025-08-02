@@ -1,4 +1,4 @@
-package com.richards.achievepro.models; // Ensure this package name is correct for your project
+package com.richards.achievepro.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,7 +36,7 @@ public class Achievement {
         @Column(name = "description", columnDefinition = "TEXT")
         private String description;
 
-        @Column(name = "rating", nullable = false)
+        @Column(name = "rating", nullable = true)
         private int rating;
 
         @Column(name = "date_achieved", nullable = false, length = 10)
