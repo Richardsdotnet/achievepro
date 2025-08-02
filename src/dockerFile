@@ -1,0 +1,11 @@
+# Use an OpenJDK base image
+FROM openjdk:17-jdk-alpine
+
+# Set the JAR file name (adjust if yours is different)
+ARG JAR_FILE=target/achievepro.jar
+
+# Copy your jar into the container
+COPY ${JAR_FILE} app.jar
+
+# Run the jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
