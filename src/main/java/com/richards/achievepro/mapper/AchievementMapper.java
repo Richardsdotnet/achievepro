@@ -1,6 +1,6 @@
 package com.richards.achievepro.mapper;
 
-import com.richards.achievepro.model.Achievement;
+import com.richards.achievepro.achievementModels.Achievement;
 import com.richards.achievepro.dto.request.AchievementRequestDTO;
 import com.richards.achievepro.dto.response.AchievementResponseDTO;
 import org.springframework.stereotype.Component;

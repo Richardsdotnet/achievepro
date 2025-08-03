@@ -1,6 +1,7 @@
 package com.richards.achievepro.repository;
 
-import com.richards.achievepro.model.Achievement;
+
+import com.richards.achievepro.achievementModels.Achievement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

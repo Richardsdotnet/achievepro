@@ -1,9 +1,10 @@
 package com.richards.achievepro.service;
 
+
 import com.richards.achievepro.mapper.AchievementMapper;
 import com.richards.achievepro.dto.request.AchievementRequestDTO;
 import com.richards.achievepro.dto.response.AchievementResponseDTO;
-import com.richards.achievepro.model.Achievement;
+import com.richards.achievepro.achievementModels.Achievement;
 import com.richards.achievepro.repository.AchievementRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
