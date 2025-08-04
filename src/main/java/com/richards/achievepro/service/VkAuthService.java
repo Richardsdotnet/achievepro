@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 @Service
 
 public class VkAuthService implements VkAuthInterface {
-    @Value("${VK_APP_SECRET_KEY}")
+    @Value("${vk.app.secret-key}")
     private String APP_SECRET_KEY;
 
     public String getAuthenticatedUserId(String launchParams) {
