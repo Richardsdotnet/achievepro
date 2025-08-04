@@ -6,6 +6,7 @@ import com.richards.achievepro.dto.request.AchievementRequestDTO;
 import com.richards.achievepro.dto.response.AchievementResponseDTO;
 import com.richards.achievepro.achievementModels.Achievement;
 import com.richards.achievepro.repository.AchievementRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Component
+
 public class AchievementService {
 
     private final AchievementRepository achievementRepository;
