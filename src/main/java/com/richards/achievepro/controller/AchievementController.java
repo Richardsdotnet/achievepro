@@ -3,7 +3,7 @@ package com.richards.achievepro.controller;
 import com.richards.achievepro.dto.request.AchievementRequestDTO;
 import com.richards.achievepro.dto.response.AchievementResponseDTO;
 import com.richards.achievepro.service.AchievementServiceInterface;
-import com.richards.achievepro.service.VkAuthService;
+import com.richards.achievepro.service.VkAuthServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +16,9 @@ import java.util.List;
 public class AchievementController {
 
     private final AchievementServiceInterface achievementService;
-    private final VkAuthService vkAuthService;
+    private final VkAuthServiceImpl vkAuthService;
 
-    public AchievementController(AchievementServiceInterface achievementService, VkAuthService vkAuthService) {
+    public AchievementController(AchievementServiceInterface achievementService, VkAuthServiceImpl vkAuthService) {
         this.achievementService = achievementService;
         this.vkAuthService = vkAuthService;
     }
