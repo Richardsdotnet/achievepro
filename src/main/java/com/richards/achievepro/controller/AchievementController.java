@@ -3,6 +3,7 @@ package com.richards.achievepro.controller;
 import com.richards.achievepro.dto.request.AchievementRequestDTO;
 import com.richards.achievepro.dto.response.AchievementResponseDTO;
 import com.richards.achievepro.service.AchievementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.stream.Stream;
 @RequestMapping("/api/achievements")
 @CrossOrigin(origins = "*") // FIX: Allows requests from any origin (e.g., your frontend)
 public class AchievementController {
+
 
     private final AchievementService achievementService;
 
