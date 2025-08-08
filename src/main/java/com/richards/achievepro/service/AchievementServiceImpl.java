@@ -56,7 +56,7 @@ public class AchievementServiceImpl implements AchievementServiceInterface {
                     existingAchievement.setTitle(requestDTO.getTitle());
                     existingAchievement.setDescription(requestDTO.getDescription());
                     existingAchievement.setRating(requestDTO.getRating());
-                    existingAchievement.setDateAchieved(requestDTO.getDateAchieved());
+                    existingAchievement.setDateAchieved(String.valueOf(requestDTO.getDateAchieved()));
                     Achievement updatedAchievement = achievementRepository.save(existingAchievement);
                     return achievementMapper.toDto(updatedAchievement);
                 })

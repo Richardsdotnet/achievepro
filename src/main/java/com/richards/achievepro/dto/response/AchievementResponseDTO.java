@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @NoArgsConstructor
@@ -16,5 +18,5 @@ public class AchievementResponseDTO {
     private String title;
     private String description;
     private int rating;
-    private String dateAchieved;
+    private LocalDateTime dateAchieved;
 }
