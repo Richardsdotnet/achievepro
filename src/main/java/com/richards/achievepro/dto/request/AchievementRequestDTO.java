@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 
 @Data
 @NoArgsConstructor
@@ -13,5 +15,5 @@ public class AchievementRequestDTO {
     private String title;
     private String description;
     private int rating; // Updated from 'score' to 'rating'
-    private String dateAchieved;
+    private LocalDate dateAchieved;
 }
