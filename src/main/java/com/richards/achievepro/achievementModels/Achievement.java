@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 /**
  * Represents a user achievement, mapped to the 'achievements' table in the database.
  */
@@ -40,5 +42,5 @@ public class Achievement {
         private int rating;
 
         @Column(name = "date_achieved", nullable = false, length = 10)
-        private String dateAchieved;
+        private LocalDate dateAchieved;
 }

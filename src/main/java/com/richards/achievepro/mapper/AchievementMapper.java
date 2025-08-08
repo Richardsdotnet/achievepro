@@ -4,8 +4,6 @@ import com.richards.achievepro.achievementModels.Achievement;
 import com.richards.achievepro.dto.request.AchievementRequestDTO;
 import com.richards.achievepro.dto.response.AchievementResponseDTO;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +18,7 @@ public class AchievementMapper {
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setRating(dto.getRating());
-        entity.setDateAchieved(String.valueOf(dto.getDateAchieved()));
+        entity.setDateAchieved((dto.getDateAchieved()));
         return entity;
     }
 
@@ -34,7 +32,7 @@ public class AchievementMapper {
         dto.setTitle(entity.getTitle());
         dto.setDescription(entity.getDescription());
         dto.setRating(entity.getRating());
-        dto.setDateAchieved(LocalDateTime.parse(entity.getDateAchieved()));
+        dto.setDateAchieved((entity.getDateAchieved()));
         return dto;
     }
 
